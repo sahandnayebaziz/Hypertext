@@ -54,20 +54,20 @@ class tag: Renderable {
     var children: Renderable? = nil
     var attributes: [String: String]? = [:]
     
-    init(setChildren: (() -> Renderable)) {
+    init(setChildren: (() -> Renderable?)) {
         self.children = setChildren()
     }
     
     convenience init() {
-        self.init { return "" }
+        self.init { nil }
     }
     
     convenience init(attributes: [String: String]) {
-        self.init { return "" }
+        self.init { nil }
         self.attributes = attributes
     }
     
-    convenience init(setChildren: (() -> Renderable), attributes: [String: String]) {
+    convenience init(setChildren: (() -> Renderable?), attributes: [String: String]) {
         self.init(setChildren: setChildren)
         self.attributes = attributes
     }
@@ -93,11 +93,14 @@ class tag: Renderable {
         if isSelfClosing {
             return "\(leadingSpaces)<\(name)\(renderAttributes())/>"
         } else {
-            return "\(leadingSpaces)<\(name)\(renderAttributes())>\(children != nil ? "\n\(children!.render(startingWithSpacesCount: startingWithSpacesCount + 2))\n" : "")\(leadingSpaces)</\(name)>"
+            guard let children = children else {
+                return "\(leadingSpaces)<\(name)\(renderAttributes())></\(name)>"
+            }
+            return "\(leadingSpaces)<\(name)\(renderAttributes())>\("\n\(children.render(startingWithSpacesCount: startingWithSpacesCount + 2))\n")\(leadingSpaces)</\(name)>"
         }
     }
     
-    func renderAttributes() -> String {
+    private func renderAttributes() -> String {
         guard let attributes = attributes else {
             return ""
         }
@@ -108,48 +111,5 @@ class tag: Renderable {
     }
 }
 
-class head: tag {
-    override init(setChildren: (() -> Renderable)) {
-        super.init(setChildren: setChildren)
-        name = "head"
-    }
-}
 
-class div: tag {
-    override init(setChildren: (() -> Renderable)) {
-        super.init(setChildren: setChildren)
-        name = "div"
-    }
-}
-
-class title: tag {
-    override init(setChildren: (() -> Renderable)) {
-        super.init(setChildren: setChildren)
-        name = "title"
-    }
-}
-
-class img: tag {
-    override init(setChildren: (() -> Renderable)) {
-        super.init(setChildren: setChildren)
-        name = "img"
-        isSelfClosing = true
-    }
-}
-
-class link: tag {
-    override init(setChildren: (() -> Renderable)) {
-        super.init(setChildren: setChildren)
-        name = "link"
-        isSelfClosing = true
-    }
-}
-
-class meta: tag {
-    override init(setChildren: (() -> Renderable)) {
-        super.init(setChildren: setChildren)
-        name = "meta"
-        isSelfClosing = true
-    }
-}
 

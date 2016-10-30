@@ -11,6 +11,7 @@
 		D82EDB2B1DC542A3009DD64B /* HypertextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82EDB2A1DC542A3009DD64B /* HypertextTests.swift */; };
 		D82EDB2D1DC542A3009DD64B /* Hypertext.h in Headers */ = {isa = PBXBuildFile; fileRef = D82EDB1F1DC542A3009DD64B /* Hypertext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D82EDB371DC54419009DD64B /* Hypertext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82EDB361DC54419009DD64B /* Hypertext.swift */; };
+		D8E307341DC6346700E135DB /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E307331DC6346700E135DB /* Tags.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		D82EDB2A1DC542A3009DD64B /* HypertextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HypertextTests.swift; sourceTree = "<group>"; };
 		D82EDB2C1DC542A3009DD64B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D82EDB361DC54419009DD64B /* Hypertext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hypertext.swift; sourceTree = "<group>"; };
+		D8E307331DC6346700E135DB /* Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			children = (
 				D82EDB1F1DC542A3009DD64B /* Hypertext.h */,
 				D82EDB361DC54419009DD64B /* Hypertext.swift */,
+				D8E307331DC6346700E135DB /* Tags.swift */,
 				D82EDB201DC542A3009DD64B /* Info.plist */,
 			);
 			path = Hypertext;
@@ -202,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8E307341DC6346700E135DB /* Tags.swift in Sources */,
 				D82EDB371DC54419009DD64B /* Hypertext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

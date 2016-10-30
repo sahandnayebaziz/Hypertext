@@ -18,6 +18,27 @@ class HypertextTests: XCTestCase {
         XCTAssertEqual(expected, actual)
     }
     
+    func testCanRenderIntRenderable() {
+        let expected = "<div>2</div>"
+        let actual = div { 2 }.render()
+        
+        XCTAssertEqual(expected, actual)
+    }
+    
+    func testCanRenderDoubleRenderable() {
+        let expected = "<div>2.0</div>"
+        let actual = div { 2.0 }.render()
+        
+        XCTAssertEqual(expected, actual)
+    }
+    
+    func testCanRenderFloatRenderable() {
+        let expected = "<div>2.0</div>"
+        let actual = div { Float(2.0) }.render()
+        
+        XCTAssertEqual(expected, actual)
+    }
+    
     func testCanRenderTag() {
         let expected = "<title></title>"
         let actual = title().render()
@@ -67,6 +88,13 @@ class HypertextTests: XCTestCase {
         XCTAssertEqual(expected, actual)
     }
     
+    func testCanRenderTagWithChildWithNestedChildAbusingRender() {
+        let expected = "<div><div><img/></div></div>"
+        let actual = div { div { img().render() }.render() }.render()
+        
+        XCTAssertEqual(expected, actual)
+    }
+    
     func testCanRenderTagWithManyNestedChildren() {
         let expected = "<div><div><div><div><div><div><div><div></div></div></div></div></div></div></div></div>"
         let actual = div { div { div { div { div { div { div { div() } } } } } } }.render()
@@ -81,4 +109,24 @@ class HypertextTests: XCTestCase {
         XCTAssertEqual(expected, actual)
     }
     
+    func testCanRenderAttributesOnNestedTag() {
+        let expected = "<head><link rel=\"stylesheet\" type=\"text/css\" href=\"./style.css\"/></head>"
+        let actual = head { link(attributes: ["rel": "stylesheet", "type":"text/css", "href":"./style.css"]) }.render()
+        
+        XCTAssertEqual(expected, actual)
+    }
+    
+    func testCanRenderTagsWithFormatting() {
+        let expected = "<head>\n  <title>\n    hello world.\n  </title>\n</head>"
+        let actual = head { title { "hello world." } }.render(startingWithSpacesCount: 0)
+        
+        XCTAssertEqual(expected, actual)
+    }
+    
+    func testCanRenderTagsWithFormattingWithMultipleSiblings() {
+        let expected = "<div>\n  <img/>\n  <img/>\n  <img/>\n  <h1></h1>\n</div>"
+        let actual = div { [ img(), img(), img(), h1() ] }.render(startingWithSpacesCount: 0)
+        
+        XCTAssertEqual(expected, actual)
+    }
 }
