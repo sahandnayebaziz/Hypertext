@@ -52,7 +52,7 @@ open class tag: Renderable {
     public var name: String? = nil
     public var isSelfClosing: Bool = false
     public var children: Renderable? = nil
-    public var attributes: [String: String]? = [:]
+    public var attributes: [String: String] = [:]
 
     public init(setChildren: (() -> Renderable?)) {
         self.children = setChildren()
@@ -80,7 +80,7 @@ open class tag: Renderable {
         if isSelfClosing {
             return "<\(name)\(renderAttributes())/>"
         } else {
-            return "<\(name)\(renderAttributes())>\(children != nil ? children!.render() : "")</\(name)>"
+            return "<\(name)\(renderAttributes())>\(children?.render() ?? "")</\(name)>"
         }
     }
 
@@ -101,10 +101,6 @@ open class tag: Renderable {
     }
 
     private func renderAttributes() -> String {
-        guard let attributes = attributes else {
-            return ""
-        }
-
         return attributes.keys.reduce("") { renderedSoFar, attributeKey in
             return "\(renderedSoFar) \(attributeKey)=\"\(attributes[attributeKey]!)\""
         }
