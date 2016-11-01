@@ -1,0 +1,8 @@
+os:
+  - linux
+language: generic
+sudo: required
+dist: trusty
+osx_image: xcode8
+script:
+- eval "$(curl -sL https://raw.githubusercontent.com/sahandnayebaziz/Hypertext/tests/.travis.sh)"
