@@ -96,15 +96,22 @@ class HypertextTests: XCTestCase {
 
   func testCanRenderAttributeOnTag() {
       let expected = "<link href=\"./style.css\"/>"
-      let actual = link(attributes: ["href":"./style.css"]).render()
+      let actual = link(["href":"./style.css"]).render()
 
       XCTAssertEqual(expected, actual)
   }
 
   func testCanRenderAttributeOnNestedTag() {
       let expected = "<head><link href=\"./style.css\"/></head>"
-      let actual = head { link(attributes: ["href":"./style.css"]) }.render()
-    
+      let actual = head { link(["href":"./style.css"]) }.render()
+
+      XCTAssertEqual(expected, actual)
+  }
+
+  func testCanRenderTagWithAttributesAndChildren() {
+      let expected = "<div class=\"container\"><p>Well hello there...</p></div>"
+      let actual = div(["class":"container"]) { p { "Well hello there..." } }.render()
+
       XCTAssertEqual(expected, actual)
   }
 
@@ -122,6 +129,19 @@ class HypertextTests: XCTestCase {
       XCTAssertEqual(expected, actual)
   }
 
+  func testCanCreateCustomTagWithOverridenName() {
+      let expected = "<mycustomtagname></mycustomtagname>"
+
+      class mycustomtag : tag {
+        override public var name: String {
+          return "mycustomtagname"
+        }
+      }
+      let actual = mycustomtag().render()
+
+      XCTAssertEqual(expected, actual)
+  }
+    
   static var allTests : [(String, (HypertextTests) -> () throws -> Void)] {
     return [
         ("testCanRenderString", testCanRenderString),
@@ -140,7 +160,9 @@ class HypertextTests: XCTestCase {
         ("testCanRenderAttributeOnTag", testCanRenderAttributeOnTag),
         ("testCanRenderAttributeOnNestedTag", testCanRenderAttributeOnNestedTag),
         ("testCanRenderTagsWithFormatting", testCanRenderTagsWithFormatting),
-        ("testCanRenderTagsWithFormattingWithMultipleSiblings", testCanRenderTagsWithFormattingWithMultipleSiblings)
+        ("testCanRenderTagsWithFormattingWithMultipleSiblings", testCanRenderTagsWithFormattingWithMultipleSiblings),
+        ("testCanCreateCustomTagWithOverridenName", testCanCreateCustomTagWithOverridenName),
+        ("testCanRenderTagWithAttributesAndChildren", testCanRenderTagWithAttributesAndChildren)
     ]
   }
 

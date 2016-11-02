@@ -55,22 +55,9 @@ open class tag: Renderable {
     public var children: Renderable? = nil
     public var attributes: [String: String] = [:]
 
-    public init(setChildren: (() -> Renderable?)) {
-        self.children = setChildren()
-    }
-
-    public convenience init() {
-        self.init { nil }
-    }
-
-    public convenience init(attributes: [String: String]) {
-        self.init { nil }
+    public init(_ attributes: [String: String] = [:], setChildren: (() -> Renderable?) = { nil }) {
         self.attributes = attributes
-    }
-
-    public convenience init(setChildren: (() -> Renderable?), attributes: [String: String]) {
-        self.init(setChildren: setChildren)
-        self.attributes = attributes
+        self.children   = setChildren()
     }
 
     public func render() -> String {
