@@ -141,7 +141,14 @@ class HypertextTests: XCTestCase {
 
       XCTAssertEqual(expected, actual)
   }
-    
+
+  func testCanDescribeTagAsCustomStringConvertible() {
+      let expected = "<div>hello world.</div>"
+      let actual = "\(div { "hello world." })"
+
+      XCTAssertEqual(expected, actual)
+  }
+
   static var allTests : [(String, (HypertextTests) -> () throws -> Void)] {
     return [
         ("testCanRenderString", testCanRenderString),
@@ -162,7 +169,8 @@ class HypertextTests: XCTestCase {
         ("testCanRenderTagsWithFormatting", testCanRenderTagsWithFormatting),
         ("testCanRenderTagsWithFormattingWithMultipleSiblings", testCanRenderTagsWithFormattingWithMultipleSiblings),
         ("testCanCreateCustomTagWithOverridenName", testCanCreateCustomTagWithOverridenName),
-        ("testCanRenderTagWithAttributesAndChildren", testCanRenderTagWithAttributesAndChildren)
+        ("testCanRenderTagWithAttributesAndChildren", testCanRenderTagWithAttributesAndChildren),
+        ("testCanDescribeTagAsCustomStringConvertible", testCanDescribeTagAsCustomStringConvertible)
     ]
   }
 

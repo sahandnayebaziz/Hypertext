@@ -6,18 +6,24 @@
 //  Copyright © 2016 Sahand Nayebaziz. All rights reserved.
 //
 
-public protocol Renderable {
+public protocol Renderable: CustomStringConvertible {
     func render() -> String
     func render(startingWithSpacesCount: Int) -> String
 }
 
-extension CustomStringConvertible {
+public extension CustomStringConvertible {
     public func render() -> String {
         return String(describing: self)
     }
 
     public func render(startingWithSpacesCount: Int) -> String {
         return String(repeating: " ", count: startingWithSpacesCount) + render()
+    }
+}
+
+public extension Renderable {
+    var description: String {
+        return render()
     }
 }
 
