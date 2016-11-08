@@ -149,6 +149,18 @@ class HypertextTests: XCTestCase {
       XCTAssertEqual(expected, actual)
   }
 
+  func testCanRenderDoctype() {
+      let expected = "<!DOCTYPE html>"
+      let actual = doctype(.html5).render()
+
+      XCTAssertEqual(expected, actual)
+
+      let expectedHtml4 = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">"
+      let actualHtml4 = doctype(.html4Strict).render()
+
+      XCTAssertEqual(expectedHtml4, actualHtml4)
+  }
+
   static var allTests : [(String, (HypertextTests) -> () throws -> Void)] {
     return [
         ("testCanRenderString", testCanRenderString),
@@ -170,7 +182,8 @@ class HypertextTests: XCTestCase {
         ("testCanRenderTagsWithFormattingWithMultipleSiblings", testCanRenderTagsWithFormattingWithMultipleSiblings),
         ("testCanCreateCustomTagWithOverridenName", testCanCreateCustomTagWithOverridenName),
         ("testCanRenderTagWithAttributesAndChildren", testCanRenderTagWithAttributesAndChildren),
-        ("testCanDescribeTagAsCustomStringConvertible", testCanDescribeTagAsCustomStringConvertible)
+        ("testCanDescribeTagAsCustomStringConvertible", testCanDescribeTagAsCustomStringConvertible),
+        ("testCanRenderDoctype", testCanRenderDoctype)
     ]
   }
 
