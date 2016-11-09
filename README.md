@@ -84,7 +84,14 @@ head { title { "hello world." } }.render(startingWithSpaces: 0, indentingWithSpa
    
    ```
 
-7. Rendering unminified, with newlines and indentation
+7. Rendering a doctype declaration
+
+   ```swift
+   doctype(.html5).render()
+   // <!DOCTYPE html>
+   ```
+
+8. Rendering unminified, with newlines and indentation
 
     ```swift
     
@@ -97,7 +104,7 @@ head { title { "hello world." } }.render(startingWithSpaces: 0, indentingWithSpa
     
     ```
     
-8. Rendering a tag in a novel way, any way you want to
+9. Rendering a tag in a novel way, any way you want to
 
    ```swift
    
@@ -110,7 +117,7 @@ head { title { "hello world." } }.render(startingWithSpaces: 0, indentingWithSpa
    
    ```
    
-9. Rendering a custom tag
+10. Rendering a custom tag
 
    ```swift
    
@@ -126,7 +133,7 @@ head { title { "hello world." } }.render(startingWithSpaces: 0, indentingWithSpa
    
    ```
    
-10. Rendering a custom type by adopting the protocol `Renderable`
+11. Rendering a custom type by adopting the protocol `Renderable`
 
    ```swift
    
