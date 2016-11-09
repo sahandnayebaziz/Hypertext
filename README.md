@@ -14,7 +14,7 @@ title { "hello world." }.render()
 head { title { "hello world." } }.render()
 // <head><title>hello world.</title></head>
 
-head { title { "hello world." } }.render(startingWithSpacesCount: 0)
+head { title { "hello world." } }.render(startingWithSpaces: 0, indentingWithSpaces: 2)
 // <head>
 //   <title>
 //     hello world.
@@ -70,16 +70,25 @@ head { title { "hello world." } }.render(startingWithSpacesCount: 0)
 
    ```swift
    
-   link(attributes: ["rel": "stylesheet", "type":"text/css", "href":"./style.css"]).render()
+   link(["rel": "stylesheet", "type":"text/css", "href":"./style.css"]).render()
    // <link rel="stylesheet" type="text/css" href="./style.css"/>
    
    ```
+   
+6. Rendering a tag with attributes and children
 
-6. Rendering unminified, with newlines and two-space indentation
+   ```swift
+   
+   div(["class": "container"]) { "hello world." }
+   // <div class="container">hello world.</div>
+   
+   ```
+
+7. Rendering unminified, with newlines and indentation
 
     ```swift
     
-    head { title { "hello world." } }.render(startingWithSpacesCount: 0)
+    head { title { "hello world." } }.render(startingWithSpaces: 0, indentingWithSpaces: 2)
     // <head>
     //   <title>
     //     hello world.
@@ -88,7 +97,7 @@ head { title { "hello world." } }.render(startingWithSpacesCount: 0)
     
     ```
     
-7. Rendering a tag in a novel way, any way you want to
+8. Rendering a tag in a novel way, any way you want to
 
    ```swift
    
@@ -101,15 +110,14 @@ head { title { "hello world." } }.render(startingWithSpacesCount: 0)
    
    ```
    
-8. Rendering a custom tag
+9. Rendering a custom tag
 
    ```swift
    
    public class myNewTag: tag {
-     override public init(setChildren: (() -> Renderable?)) {
-       super.init(setChildren: setChildren)
-       name = "myNewTag"
-       isSelfClosing = true
+   
+     override public var isSelfClosing: Bool { 
+       return true 
      }
    }
    
@@ -118,18 +126,13 @@ head { title { "hello world." } }.render(startingWithSpacesCount: 0)
    
    ```
    
-9. Rendering a custom type by adopting the protocol `Renderable`
+10. Rendering a custom type by adopting the protocol `Renderable`
 
    ```swift
    
    extension MyType: Renderable {
-     public func render() -> String {
-
-     }
-
-     public func render(startingWithSpacesCount: Int) -> String {
-
-     }
+     public func render() -> String { ... }
+     public func render(startingWithSpaces: Int, indentingWithSpaces: Int) -> String { ... }
    }
 
    ```
