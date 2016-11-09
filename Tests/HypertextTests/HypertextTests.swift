@@ -117,14 +117,19 @@ class HypertextTests: XCTestCase {
 
   func testCanRenderTagsWithFormatting() {
       let expected = "<head>\n  <title>\n    hello world.\n  </title>\n</head>"
-      let actual = head { title { "hello world." } }.render(startingWithSpacesCount: 0)
+      let actual = head { title { "hello world." } }.render(startingWithSpaces: 0, indentingWithSpaces: 2)
 
       XCTAssertEqual(expected, actual)
+    
+      let expectedFourSpaces = "<head>\n    <title>\n        hello world.\n    </title>\n</head>"
+      let actualFourSpaces = head { title { "hello world." } }.render(startingWithSpaces: 0, indentingWithSpaces: 4)
+    
+      XCTAssertEqual(expectedFourSpaces, actualFourSpaces)
   }
 
   func testCanRenderTagsWithFormattingWithMultipleSiblings() {
       let expected = "<div>\n  <img/>\n  <img/>\n  <img/>\n  <h1></h1>\n</div>"
-      let actual = div { [ img(), img(), img(), h1() ] }.render(startingWithSpacesCount: 0)
+      let actual = div { [ img(), img(), img(), h1() ] }.render(startingWithSpaces: 0, indentingWithSpaces: 2)
 
       XCTAssertEqual(expected, actual)
   }
