@@ -6,6 +6,8 @@
 //  Copyright © 2016 Sahand Nayebaziz. All rights reserved.
 //
 
+import Foundation
+
 public protocol Renderable: CustomStringConvertible {
     func render() -> String
     func render(startingWithSpaces: Int, indentingWithSpaces: Int) -> String
@@ -54,9 +56,32 @@ extension Array: Renderable {
     }
 }
 
+enum TagFormatter {
+    static func dashed(_ tag: String) -> String {
+        return delimited(tag, delimiter: "-")
+    }
+    static func snaked(_ tag: String) -> String {
+        return delimited(tag, delimiter: "_")
+    }
+    
+    static private func delimited(_ tag: String, delimiter: String) -> String {
+        let range = NSMakeRange(0, tag.characters.count)
+        let pattern = "(.)(?=[A-Z])"
+        #if !os(Linux)
+        let regex = try! NSRegularExpression(pattern: pattern, options: [])
+        #else
+        let regex = try! RegularExpression(pattern: pattern, options: [])
+        #endif
+        return regex.stringByReplacingMatches(in: tag, options: [], range: range, withTemplate: "$1\(delimiter)").lowercased()
+    }
+}
+
 open class tag: Renderable {
     open var isSelfClosing: Bool { return false }
-    open var name: String { return String(describing: type(of: self)) }
+    open var name: String {
+        let typeName = String(describing: type(of: self))
+        return TagFormatter.dashed(typeName)
+    }
 
     public var children: Renderable? = nil
     public var attributes: [String: String] = [:]

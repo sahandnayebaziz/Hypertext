@@ -1,6 +1,17 @@
 import XCTest
 @testable import Hypertext
 
+//MARK: Test Tags
+
+class materialButton: tag {}
+class camelButton: tag {
+  override public var name: String {
+    return String(describing: type(of: self))
+  }
+}
+
+//MARK: Test Cases
+
 class HypertextTests: XCTestCase {
 
   func testCanRenderString() {
@@ -165,6 +176,38 @@ class HypertextTests: XCTestCase {
 
       XCTAssertEqual(expectedHtml4, actualHtml4)
   }
+  
+  func testSnakeDelimiter() {
+    let expected = "material_button"
+    let actual = TagFormatter.snaked("materialButton")
+    XCTAssertEqual(expected, actual)
+    
+    let expectedNoOp = "materialbutton"
+    let actualNoOp = TagFormatter.snaked("materialbutton")
+    XCTAssertEqual(expectedNoOp, actualNoOp)
+  }
+  
+  func testDashDelimiter() {
+    let expected = "material-button"
+    let actual = TagFormatter.dashed("materialButton")
+    XCTAssertEqual(expected, actual)
+    
+    let expectedNoOp = "materialbutton"
+    let actualNoOp = TagFormatter.dashed("materialbutton")
+    XCTAssertEqual(expectedNoOp, actualNoOp)
+  }
+  
+  func testDefaultTagFormatIsDashed() {
+    let expected = "<material-button></material-button>"
+    let actual = materialButton().render()
+    XCTAssertEqual(expected, actual)
+  }
+  
+  func testCanOverrideDefaultTagFormat() {
+    let expected = "<camelButton></camelButton>"
+    let actual = camelButton().render()
+    XCTAssertEqual(expected, actual)
+  }
 
   static var allTests : [(String, (HypertextTests) -> () throws -> Void)] {
     return [
@@ -188,7 +231,11 @@ class HypertextTests: XCTestCase {
         ("testCanCreateCustomTagWithOverridenName", testCanCreateCustomTagWithOverridenName),
         ("testCanRenderTagWithAttributesAndChildren", testCanRenderTagWithAttributesAndChildren),
         ("testCanDescribeTagAsCustomStringConvertible", testCanDescribeTagAsCustomStringConvertible),
-        ("testCanRenderDoctype", testCanRenderDoctype)
+        ("testCanRenderDoctype", testCanRenderDoctype),
+        ("testSnakeDelimiter", testSnakeDelimiter),
+        ("testDashDelimiter", testDashDelimiter),
+        ("testDefaultTagFormatIsDashed", testDefaultTagFormatIsDashed),
+        ("testCanOverrideDefaultTagFormat", testCanOverrideDefaultTagFormat)
     ]
   }
 

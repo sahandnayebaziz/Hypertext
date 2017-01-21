@@ -129,7 +129,7 @@ head { title { "hello world." } }.render(startingWithSpaces: 0, indentingWithSpa
    }
    
    myNewTag().render()
-   // <myNewTag/>
+   // <my-new-tag/>
    
    ```
    
