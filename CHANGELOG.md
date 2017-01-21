@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.0](https://github.com/sahandnayebaziz/Hypertext/releases/tag/2.1.0)
+January 21st, 2017
+
+#### Added
+- Custom tags now, by default, render their tags with HTML-appropriate hyphenation if given a camel case name.
+```swift
+public class myNewTag: tag {}
+
+myNewTag().render()
+// <my-new-tag/>
+```
+thank you @stupergenius for [#23](https://github.com/sahandnayebaziz/Hypertext/pull/23)
 
 ## [2.0.0](https://github.com/sahandnayebaziz/Hypertext/releases/tag/2.0.0)
 November 9th, 2016
