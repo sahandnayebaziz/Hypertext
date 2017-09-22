@@ -23,12 +23,6 @@ public extension CustomStringConvertible {
     }
 }
 
-public extension Renderable {
-    var description: String {
-        return render()
-    }
-}
-
 extension String: Renderable {}
 extension Int: Renderable {}
 extension Double: Renderable {}
@@ -82,14 +76,18 @@ open class tag: Renderable {
         let typeName = String(describing: type(of: self))
         return TagFormatter.dashed(typeName)
     }
-
+    
     public var children: Renderable? = nil
     public var attributes: [String: String] = [:]
-
+    
+    public var description: String {
+        return render()
+    }
+    
     public init(_ attributes: [String: String] = [:], setChildren: (() -> Renderable?) = { nil }) {
         self.attributes = attributes
         self.children   = setChildren()
-    }
+    } 
 
     public func render() -> String {
         if isSelfClosing {
