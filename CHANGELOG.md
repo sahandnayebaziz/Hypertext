@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.1](https://github.com/sahandnayebaziz/Hypertext/releases/tag/2.1.1)
+September 22, 2017
+
+#### Fixed
+- Fixed an extension that was adding a `description` property to all types that conformed to `Renderable`, instead of just to `tag`, that was causing duplication in standard types like `String` and `Int`
+
+thank you @briancprice for [#28](https://github.com/sahandnayebaziz/Hypertext/pull/28)
+
 ## [2.1.0](https://github.com/sahandnayebaziz/Hypertext/releases/tag/2.1.0)
 January 21st, 2017
 
