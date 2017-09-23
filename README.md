@@ -119,27 +119,27 @@ head { title { "hello world." } }.render(startingWithSpaces: 0, indentingWithSpa
    
 10. Rendering a custom tag
 
-   ```swift
-   
-   public class myNewTag: tag {
-   
-     override public var isSelfClosing: Bool { 
-       return true 
-     }
-   }
-   
-   myNewTag().render()
-   // <my-new-tag/>
-   
-   ```
+       ```swift
+
+       public class myNewTag: tag {
+
+         override public var isSelfClosing: Bool { 
+           return true 
+         }
+       }
+
+       myNewTag().render()
+       // <my-new-tag/>
+
+       ```
    
 11. Rendering a custom type by adopting the protocol `Renderable`
 
-   ```swift
-   
-   extension MyType: Renderable {
-     public func render() -> String { ... }
-     public func render(startingWithSpaces: Int, indentingWithSpaces: Int) -> String { ... }
-   }
+       ```swift
 
-   ```
+       extension MyType: Renderable {
+         public func render() -> String { ... }
+         public func render(startingWithSpaces: Int, indentingWithSpaces: Int) -> String { ... }
+       }
+
+       ```
